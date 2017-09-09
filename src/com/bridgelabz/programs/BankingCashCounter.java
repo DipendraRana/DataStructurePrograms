@@ -25,23 +25,28 @@ public class BankingCashCounter {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Queue<Integer> queue=new LinkedList<Integer>();
+		String answer;
 		System.out.println("How much cash is there, today?");
 		int cashBalance=scanner.nextInt();
-		System.out.println("How many people are standing in queue");
-		int countingPeople=scanner.nextInt();
-		for(int i=1;i<=countingPeople;i++)
-			queue.add(i);
-		int i=1;
-		while(!queue.isEmpty()) {
-			System.out.println("Person "+i);
-			System.out.println("What do you want to do:");
-			System.out.println("1. Withdrawl");
-			System.out.println("2. Deposit");
-			int choice=scanner.nextInt();
-			cashBalance=Utility.simulateCashCounter(cashBalance, choice, queue);
-			System.out.println();
-			i++;
-		}
+		do {
+			System.out.println("How many people are standing in queue");
+			int countingPeople=scanner.nextInt();
+			for(int i=1;i<=countingPeople;i++)
+				queue.add(i);
+			int i=1;
+				while(!queue.isEmpty()) {
+				System.out.println("Person "+i);
+				System.out.println("What do you want to do:");
+				System.out.println("1. Withdrawl");
+				System.out.println("2. Deposit");
+				int choice=scanner.nextInt();
+				cashBalance=Utility.simulateCashCounter(cashBalance, choice, queue);
+				System.out.println();
+				i++;
+			}
+			System.out.println("Would you attend more People(yes/no)");
+			answer=scanner.next();
+		}while(answer.equals("yes"));
 	}
 
 }
