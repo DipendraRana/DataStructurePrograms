@@ -32,7 +32,7 @@ public class Utility {
 	
 	public static int[] daysInMonth= {31,28,31,30,31,30,31,31,30,31,30,31,30,31};
 	
-	public static int count = 0;
+	public static int count = 0,countn=0;
 
 	public static String[] readFromFile(String address) throws IOException {
 		@SuppressWarnings("resource")
@@ -286,7 +286,7 @@ public class Utility {
 				count++;
 			}	
 		}
-		for(int i=0;i<10;i++) {
+		for(int i=0;i<twoDArray.size();i++) {
 			for(int j=0;j<twoDArray.get(i).size();j++) {
 				System.out.format("%4d ",twoDArray.get(i).get(j));
 			}
@@ -306,4 +306,63 @@ public class Utility {
 			return false;
 	}
 
+	public static void primeAndAnagram(int minRange,int maxRange){
+		ArrayList<String> oneDArray=new ArrayList<String>();
+		ArrayList<ArrayList<String>> twoDArray=new ArrayList<ArrayList<String>>();
+		for(int i=0;i<2;i++)
+			twoDArray.add(new ArrayList<String>());
+		oneDArray=primeFinderInRange(minRange,maxRange);
+		for(int i=0;i<oneDArray.size();i++) {
+			int count=0;
+			for(int j=0;j<oneDArray.size();j++){
+				if(anagramChecker(oneDArray.get(i),oneDArray.get(j))&&oneDArray.get(i)!=oneDArray.get(j)) 
+					count++;
+			}
+			if(count>0)
+				twoDArray.get(0).add(oneDArray.get(i));
+			else
+				twoDArray.get(1).add(oneDArray.get(i));
+		}
+		for(int i=0;i<twoDArray.size();i++){
+			for(int j=0;j<twoDArray.get(i).size();j++)
+				System.out.print(twoDArray.get(i).get(j)+" ");
+			System.out.println();
+		}
+	}
+	
+	public static ArrayList<String> primeFinderInRange(int minRange,int maxRange) {
+		ArrayList<String> store=new ArrayList<String>();
+		for(int i=minRange;i<maxRange;i++) {
+			if(primeChecker(i)&&i!=0&&i!=1) {
+				//System.out.println(i);
+				store.add(Integer.toString(i));
+			}	
+		}
+		return store;
+	}
+
+	public static boolean anagramChecker(String word1,String word2) {
+		count=0;
+		countn=0;
+		if(word1.length()==word2.length()) {
+			for(int j=0;j<word1.length();j++) {
+				for(int i=0;i<word1.length();i++) {
+					if(word1.charAt(i)==word1.charAt(j))
+						count++;
+				}
+				for(int i=0;i<word2.length();i++) {
+					if(word1.charAt(j)==word2.charAt(i))
+						countn++;
+				}
+				if(count!=countn)
+					return false;
+			}
+			if(count==countn)
+				return true;
+			else
+				return false;
+		}
+		else 
+			return false;
+	}
 }
