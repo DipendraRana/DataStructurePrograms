@@ -9,7 +9,6 @@
 package com.bridgelabz.utility;
 
 import java.util.Scanner;
-import java.util.Stack;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileWriter;
@@ -22,7 +21,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
+import com.bridgelabz.utility.Queue;
 
 public class Utility {
 
@@ -99,7 +98,7 @@ public class Utility {
 		file.close();
 		
 	}
-
+	
 	public static  boolean simpleBalancedParanthesis(String expression) {
 		Stack<Character> stack=new Stack<Character>();
 		char[] newString=expression.toCharArray();
@@ -134,25 +133,29 @@ public class Utility {
 				if(amount<=cashBalance) { 
 					cashBalance=cashBalance-amount;
 					System.out.println("Transaction SuccesFull");
+					queue.dequeue();
 				}	
 				else {
-					if(cashBalance==0)
+					if(cashBalance==0) {
 						System.out.println("Soory!! No Cash");
+						queue.dequeue();
+					}	
 					else {
 						System.out.println("Soory!!Could not Dispense that much amount");
 						System.out.println("Wanna try for less amount(yes/no)");
 						option=scanner.next();
 						if(option.equals("yes"))
 							cashBalance=simulateCashCounter(cashBalance,1,queue);
+						else
+							queue.dequeue();
 					}
 				}	
-				queue.poll();
 				break;
 		case 2:	System.out.println("Enter the amount to Deposit:");
 				amount=scanner.nextInt();
 				cashBalance=cashBalance+amount;
 				System.out.println("Money added SuccesFully");
-				queue.poll();
+				queue.dequeue();
 				break;
 		default: System.out.println("Wrong Option");
 				 System.out.println("Have another try");
@@ -257,7 +260,7 @@ public class Utility {
 		return dayOfWeek;
 	}
 
-	public static void primeNoToStoreInArray(int minRange,int maxRange ) {
+	public static ArrayList<ArrayList<Integer>> primeNoToStoreInArray(int minRange,int maxRange ) {
 		ArrayList<ArrayList<Integer>> twoDArray=new ArrayList<ArrayList<Integer>>();
 		for(int i=0;i<10;i++)
 			twoDArray.add(new ArrayList<Integer>());
@@ -286,12 +289,74 @@ public class Utility {
 				count++;
 			}	
 		}
-		for(int i=0;i<10;i++) {
+		/*for(int i=0;i<10;i++) {
 			for(int j=0;j<twoDArray.get(i).size();j++) {
 				System.out.format("%4d ",twoDArray.get(i).get(j));
 			}
 			System.out.println();
+		}*/
+		return twoDArray;
+	}
+	
+	public static ArrayList<String> primeAndAnagram(int minRange,int maxRange){
+		ArrayList<String> oneDArray=new ArrayList<String>();
+		ArrayList<ArrayList<String>> twoDArray=new ArrayList<ArrayList<String>>();
+		for(int i=0;i<2;i++)
+			twoDArray.add(new ArrayList<String>());
+		oneDArray=primeFinderInRange(minRange,maxRange);
+		for(int i=0;i<oneDArray.size();i++) {
+			int count=0;
+			for(int j=0;j<oneDArray.size();j++){
+				if(anagramChecker(oneDArray.get(i),oneDArray.get(j))&&oneDArray.get(i)!=oneDArray.get(j)) 
+					count++;
+			}
+			if(count>0)
+				twoDArray.get(0).add(oneDArray.get(i));
+			else
+				twoDArray.get(1).add(oneDArray.get(i));
 		}
+		/*for(int i=0;i<twoDArray.size();i++){
+			for(int j=0;j<twoDArray.get(i).size();j++)
+				System.out.print(twoDArray.get(i).get(j)+" ");
+			System.out.println();
+		}*/
+		return twoDArray.get(0);
+	}
+	
+	public static boolean anagramChecker(String word1,String word2) {
+		count=0;
+		int countn=0;
+		if(word1.length()==word2.length()) {
+			for(int j=0;j<word1.length();j++) {
+				for(int i=0;i<word1.length();i++) {
+					if(word1.charAt(i)==word1.charAt(j))
+						count++;
+				}
+				for(int i=0;i<word2.length();i++) {
+					if(word1.charAt(j)==word2.charAt(i))
+						countn++;
+				}
+				if(count!=countn)
+					return false;
+			}
+			if(count==countn)
+				return true;
+			else
+				return false;
+		}
+		else 
+			return false;
+	}
+	
+	public static ArrayList<String> primeFinderInRange(int minRange,int maxRange) {
+		ArrayList<String> store=new ArrayList<String>();
+		for(int i=minRange;i<maxRange;i++) {
+			if(primeChecker(i)&&i!=0&&i!=1) {
+				//System.out.println(i);
+				store.add(Integer.toString(i));
+			}	
+		}
+		return store;
 	}
 	
 	public static boolean primeChecker(int number) {
@@ -306,4 +371,47 @@ public class Utility {
 			return false;
 	}
 
+	public static void printReverseOrderAnagram(int minRange,int maxRange) {
+		ArrayList<String> storeArray=primeAndAnagram(minRange,maxRange);
+		LinkedList<String> stackLinkedList=new LinkedList<String>();
+		for(int i=0;i<storeArray.size();i++)
+			stackLinkedList.push(storeArray.get(i));
+		System.out.println(stackLinkedList);
+		
+	}
+
+	public static void printAnagramQueue(int minRange,int maxRange) {
+		ArrayList<String> storeArray=primeAndAnagram(minRange,maxRange);
+		LinkedList<String> queueLinkedList=new LinkedList<String>();
+		for(int i=0;i<storeArray.size();i++)
+			queueLinkedList.add(storeArray.get(i));
+		System.out.println(queueLinkedList);
+	}
+
+	public static ArrayList<LinkedList<Integer>> searchInSlotHashing(int[] numbers,int findNumber) {
+		ArrayList<LinkedList<Integer>> slot=new ArrayList<LinkedList<Integer>>(11);
+		for(int i=0;i<11;i++) {
+			slot.add(new LinkedList<Integer>());
+		}
+		for(int number:numbers)
+			slot.get(number%11).add(number);
+		if(slot.get(findNumber%11).size()>=1) {
+			Collections.sort(slot.get(findNumber%11));	
+			if(Collections.binarySearch(slot.get(findNumber%11), findNumber)==-1) {
+				System.out.println("Number Not Found");
+				slot.get(findNumber%11).add(findNumber);
+				Collections.sort(slot.get(findNumber%11));
+			}
+			else {
+				System.out.println("Number Found");
+				slot.get(findNumber%11).remove(Integer.valueOf(findNumber));
+			}	
+		}
+		else {
+			System.out.println("Number Not Found");
+			slot.get(findNumber%11).add(findNumber);
+			Collections.sort(slot.get(findNumber%11));
+		}
+		return slot;
+	}
 }
