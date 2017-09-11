@@ -3,11 +3,19 @@
  * 			 numbers in that range that are Anagrams. For e.g. 17 and
  * 			 71 are both Prime and Anagrams in the 0 to 1000 range.
  * 			 Further store in a 2D Array the numbers that are Anagram
+<<<<<<< HEAD
  * 			 and numbers that are not Anagram.
  *           
  * @author Dipendra Rana
  * @version 1.0
  * @since 8 September 2017          
+=======
+ * 			 and numbers that are not Anagram
+ *           
+ * @author Dipendra Rana
+ * @version 1.0
+ * @since 10 September 2017          
+>>>>>>> 89efddc6ad6264a449447e31be44e997e929be60
  *********************************************************************/
 
 package com.bridgelabz.programs;
@@ -25,6 +33,10 @@ public class PrimeAndAnagram {
 		int minRange=scanner.nextInt();
 		int maxRange=scanner.nextInt();
 		Utility.primeAndAnagram(minRange, maxRange);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 89efddc6ad6264a449447e31be44e997e929be60
 	}
 
 }
