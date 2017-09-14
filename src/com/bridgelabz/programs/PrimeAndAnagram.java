@@ -19,7 +19,7 @@ import com.bridgelabz.utility.Utility;
 public class PrimeAndAnagram {
 	
 	public static Scanner scanner=new Scanner(System.in);
-
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int minRange=scanner.nextInt();

@@ -428,4 +428,18 @@ public class Utility {
 		stackToStoreQueue1.push(cloneQueue);
 		stackToStoreQueue2.push(cloneQueue);
 	}
+
+	public static int binaryTreePossible(int noOfNode) {
+		int sum=0,sumTill=0;
+		if(noOfNode==0||noOfNode==1)
+			return 1;
+		else {
+			
+			while(sumTill<noOfNode) {
+				sumTill++;
+				sum=sum+binaryTreePossible(sumTill-1)*binaryTreePossible(noOfNode-sumTill);
+			}
+			return sum;
+		}
+	}
 }
