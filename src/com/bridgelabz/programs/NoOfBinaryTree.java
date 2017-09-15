@@ -28,7 +28,7 @@ public class NoOfBinaryTree {
 			storeNode[i]=scanner.nextInt();
 		}
 		for(int i=0;i<storeNode.length;i++) {
-			int noOfBTreePosssible=Utility.binaryTreePossible(storeNode[i]);
+			long noOfBTreePosssible=Utility.binaryTreePossible(storeNode[i]);
 			System.out.println("For Node "+storeNode[i]+" Possible Binary search Trees are: "+noOfBTreePosssible);
 		}
 	}

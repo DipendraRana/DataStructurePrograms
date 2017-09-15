@@ -429,8 +429,9 @@ public class Utility {
 		stackToStoreQueue2.push(cloneQueue);
 	}
 
-	public static int binaryTreePossible(int noOfNode) {
-		int sum=0,sumTill=0;
+	public static long binaryTreePossible(int noOfNode) {
+		long sum = 0;
+		int sumTill=0;
 		if(noOfNode==0||noOfNode==1)
 			return 1;
 		else {
